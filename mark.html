@@ -18,41 +18,18 @@
 <body>
     <div class="container mt-4">
         <div id="map"></div>
-        <form action="https://docs.google.com/forms/d/e/1FAIpQLSc-eI8W0yABluXJaxh1eOutqoq-IMPozUsf8LXCcfA4kCE3sg/formResponse" method="POST">
+        <form id="google-form" method="POST" onsubmit="submitForm(event)">
             <!-- Hidden fields for latitude and longitude -->
             <input type="hidden" id="lat" name="entry.762797833">
             <input type="hidden" id="long" name="entry.1749073491">
 
             <div class="form-group">
-                <label for="title">name</label>
+                <label for="title">Name</label>
                 <input type="text" class="form-control" id="title" name="entry.1822183594" placeholder="Enter name" required>
             </div>
             <div class="form-group">
                 <label for="description">Description</label>
                 <textarea class="form-control" id="description" name="entry.1462572732" placeholder="Enter Description" required></textarea>
-            </div>
-            <div class="form-group">
-                <label for="category">Category</label>
-                <select class="form-control" id="category" name="entry.2123662913" required>
-                    <option value="">Select Category</option>
-                    <option value="Feeds">Feeds</option>
-                    <option value="Explore">Explore</option>
-                    <option value="Party">Party</option>
-                    <option value="Show">Show</option>
-                    <option value="Sports">Sports</option>
-                    <option value="Sales">Sales</option>
-                    <option value="Job">Job</option>
-                    <option value="Parade">Parade</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="url">work charges</label>
-                <input type="number" class="form-control" id="url" name="entry.1453898494" placeholder="Enter amount" required>
-            </div>
-
-            <div class="form-group">
-                <label for="url">contact number</label>
-                <input type="number" class="form-control" id="url" name="entry.1453898494" placeholder="Enter number" required>
             </div>
 
             <button type="submit" class="btn btn-primary mt-3">Submit</button>
@@ -76,9 +53,9 @@
         }).addTo(map);
 
         // Get current location and set map view
-        function onLocationFound(e) {
-            const lat = e.latitude;
-            const lng = e.longitude;
+        function onLocationFound(position) {
+            const lat = position.coords.latitude;
+            const lng = position.coords.longitude;
             document.getElementById('lat').value = lat;
             document.getElementById('long').value = lng;
             map.setView([lat, lng], 13);
@@ -94,17 +71,27 @@
         // Try to get the user's location
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
-                (position) => {
-                    onLocationFound({
-                        latitude: position.coords.latitude,
-                        longitude: position.coords.longitude
-                    });
-                },
+                onLocationFound,
                 onLocationError
             );
         } else {
             alert('Geolocation is not supported by this browser.');
         }
+
+        // Function to submit the form with dynamic URL parameters
+        function submitForm(event) {
+            event.preventDefault();
+
+            const lat = document.getElementById('lat').value;
+            const lng = document.getElementById('long').value;
+            const name = document.getElementById('title').value;
+            const description = document.getElementById('description').value;
+
+            const formURL = `https://docs.google.com/forms/d/e/1FAIpQLSc-eI8W0yABluXJaxh1eOutqoq-IMPozUsf8LXCcfA4kCE3sg/formResponse?entry.762797833=${lat}&entry.1749073491=${lng}&entry.1822183594=${name}&entry.1462572732=${description}`;
+
+            // Submit the form via redirecting to the dynamically generated URL
+            window.location.href = formURL;
+        }
     </script>
 </body>
-</html></html>
+</html>
