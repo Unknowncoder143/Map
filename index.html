@@ -202,45 +202,42 @@ var routingControl = L.Routing.control({
     
       </script>
   <script>
-// Add custom hyperlink buttons
-L.Control.HyperlinkButtons = L.Control.extend({
+// Add a custom hyperlink button with an icon
+L.Control.HyperlinkButton = L.Control.extend({
   options: {
-    position: 'topright'
+    position: 'topright' // Position of the button on the map
   },
 
   onAdd: function(map) {
     var controlDiv = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
-    controlDiv.style.backgroundColor = 'white';
-    controlDiv.style.borderRadius = '5px';
-    controlDiv.style.padding = '10px';
+    controlDiv.style.backgroundColor = 'transparent'; // No background color
+    controlDiv.style.padding = '0'; // Remove padding
     controlDiv.style.textAlign = 'center';
 
-    // Button 1
-    var button1 = L.DomUtil.create('button', '', controlDiv);
-    button1.innerHTML = 'Visit Google';
-    button1.style.marginBottom = '10px';
-    button1.onclick = function() {
-      window.open('https://www.google.com', '_blank');
-    };
+    // Button (icon only)
+    var button = L.DomUtil.create('button', '', controlDiv);
+    button.style.width = '30px';  // Match size of other buttons
+    button.style.height = '30px'; // Match size of other buttons
+    button.style.border = 'none'; // Remove border
+    button.style.backgroundColor = 'transparent'; // Transparent background
+    button.style.cursor = 'pointer'; // Pointer on hover
+    button.innerHTML = '➕'; // Magnifying glass icon
 
-    // Button 2
-    var button2 = L.DomUtil.create('button', '', controlDiv);
-    button2.innerHTML = 'Visit Facebook';
-    button2.onclick = function() {
-      window.open('https://www.facebook.com', '_blank');
+    button.onclick = function() {
+      window.open('https://www.google.com', '_blank'); // Open Google in a new tab
     };
 
     return controlDiv;
   }
 });
 
-// Add the custom hyperlink buttons control to the map
-L.control.hyperlinkButtons = function(opts) {
-  return new L.Control.HyperlinkButtons(opts);
+// Add the custom hyperlink button control to the map
+L.control.hyperlinkButton = function(opts) {
+  return new L.Control.HyperlinkButton(opts);
 };
 
-L.control.hyperlinkButtons().addTo(map);
-  </script>
+L.control.hyperlinkButton().addTo(map);
+</script>
         
 </body>
   </html>
