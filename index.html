@@ -80,13 +80,13 @@ const map = L.map('map', {
         // Loop through the rows and add markers
         rows.forEach(row => {
           const timestamp = row.c[0] ? row.c[0].v : ''; // Timestamp
-          const title = row.c[1] ? row.c[1].v : ''; // Title
-          const description = row.c[2] ? row.c[2].v : ''; // Description
-          const lat = parseFloat(row.c[3].v); // Latitude
-          const lng = parseFloat(row.c[4].v); // Longitude
-          const imageUrl = row.c[5] ? row.c[5].v : ''; // Image URL
-          const workcharges = row.c[6] ? row.c[6].v : ''; // work charges
-          const callme = row.c[7] ? row.c[7].v : ''; // call
+          const title = row.c[1] ? row.c[3].v : ''; // Title
+          const description = row.c[2] ? row.c[4].v : ''; // Description
+          const lat = parseFloat(row.c[1].v); // Latitude
+          const lng = parseFloat(row.c[2].v); // Longitude
+          
+          
+
 
           if (!isNaN(lat) && !isNaN(lng)) {
             const popupContent = `
