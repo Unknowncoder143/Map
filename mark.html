@@ -18,10 +18,10 @@
 <body>
     <div class="container mt-4">
         <div id="map"></div>
-        <form id="google-form" method="POST" onsubmit="submitForm(event)">
+        <form action="https://docs.google.com/forms/d/e/1FAIpQLSc_CLORcgMStZBVf2_7LBFpWgQvtPW4G7ANfXLxCc4mv6cnUA/formResponse" method="POST">
             <!-- Hidden fields for latitude and longitude -->
-            <input type="hidden" id="lat" name="entry.762797833">
-            <input type="hidden" id="long" name="entry.1749073491">
+            <input type="hidden" id="lat" name="entry.1234567890"> <!-- Replace with actual latitude field ID -->
+            <input type="hidden" id="long" name="entry.0987654321"> <!-- Replace with actual longitude field ID -->
 
             <div class="form-group">
                 <label for="title">Name</label>
@@ -76,21 +76,6 @@
             );
         } else {
             alert('Geolocation is not supported by this browser.');
-        }
-
-        // Function to submit the form with dynamic URL parameters
-        function submitForm(event) {
-            event.preventDefault();
-
-            const lat = document.getElementById('lat').value;
-            const lng = document.getElementById('long').value;
-            const name = document.getElementById('title').value;
-            const description = document.getElementById('description').value;
-
-            const formURL = `https://docs.google.com/forms/d/e/1FAIpQLSc-eI8W0yABluXJaxh1eOutqoq-IMPozUsf8LXCcfA4kCE3sg/formResponse?entry.762797833=${lat}&entry.1749073491=${lng}&entry.1822183594=${name}&entry.1462572732=${description}`;
-
-            // Submit the form via redirecting to the dynamically generated URL
-            window.location.href = formURL;
         }
     </script>
 </body>
