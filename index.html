@@ -201,6 +201,46 @@ var routingControl = L.Routing.control({
         L.control.reload({ position: 'bottomleft' }).addTo(map);
     
       </script>
+  <script>
+// Add custom hyperlink buttons
+L.Control.HyperlinkButtons = L.Control.extend({
+  options: {
+    position: 'topright'
+  },
+
+  onAdd: function(map) {
+    var controlDiv = L.DomUtil.create('div', 'leaflet-bar leaflet-control');
+    controlDiv.style.backgroundColor = 'white';
+    controlDiv.style.borderRadius = '5px';
+    controlDiv.style.padding = '10px';
+    controlDiv.style.textAlign = 'center';
+
+    // Button 1
+    var button1 = L.DomUtil.create('button', '', controlDiv);
+    button1.innerHTML = 'Visit Google';
+    button1.style.marginBottom = '10px';
+    button1.onclick = function() {
+      window.open('https://www.google.com', '_blank');
+    };
+
+    // Button 2
+    var button2 = L.DomUtil.create('button', '', controlDiv);
+    button2.innerHTML = 'Visit Facebook';
+    button2.onclick = function() {
+      window.open('https://www.facebook.com', '_blank');
+    };
+
+    return controlDiv;
+  }
+});
+
+// Add the custom hyperlink buttons control to the map
+L.control.hyperlinkButtons = function(opts) {
+  return new L.Control.HyperlinkButtons(opts);
+};
+
+L.control.hyperlinkButtons().addTo(map);
+  </script>
         
 </body>
   </html>
